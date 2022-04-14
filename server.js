@@ -23,7 +23,7 @@ app.use(cors({
 }));
 
 
-require("./controllers/auth-controller")(app);
+//require("./controllers/auth-controller")(app);
 require("./controllers/users-controller")(app);
 require("./controllers/session-controller")(app);
 

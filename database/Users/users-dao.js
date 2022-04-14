@@ -9,6 +9,7 @@ const findUserById = (id) => {
 }
 const findUserByEmail = (email) =>
   userModel.findOne({email})
+
 // userModel.findOne({email: email})
 // userModel.find({email: email})
 

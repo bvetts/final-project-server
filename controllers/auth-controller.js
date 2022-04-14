@@ -3,7 +3,7 @@ const userDao = require('../database/users/users-dao')
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+/*
 const findUserByUsername = async (req, res) => {
   const username = req.params.username
   const user = await userDao.findUserByUsername(username)
@@ -13,7 +13,7 @@ const findUserByUsername = async (req, res) => {
     res.sendStatus(404)
   }
 }
-
+*/
 
 const signup = async (req, res) => {
    const newUser = req.body;
@@ -57,16 +57,18 @@ const logout = (req, res) => {
   req.session.destroy();
   res.sendStatus(200);
 }
-
+/*
 const findUsers = (req, res) => {
   res.json(users);
 }
+*/
 
+//these need to be unique across all controllers
 module.exports = (app) => {
   app.post('/api/auth/signup', signup);
   app.post('/api/auth/profile', profile);
   app.post('/api/auth/login', login);
   app.post('/api/auth/logout', logout);
-  app.get('/api/users', findUsers);
-  app.get('/api/users/username/:username', findUserByUsername);
+  //app.get('/api/users', findUsers);
+  //app.get('/api/users/username/:username', findUserByUsername);
 }

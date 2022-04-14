@@ -1,5 +1,9 @@
 const userDao = require('../database/users/users-dao')
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+
 const findAllUsers = async (req, res) => {
   const users = await userDao.findAllUsers()
   res.json(users)
@@ -63,6 +67,54 @@ const deleteUser = async (req, res) => {
 }
 
 
+//stuff from auth controller
+
+
+
+const signup = async (req, res) => {
+   const newUser = req.body;
+   const password = newUser.password;
+   const hash = await bcrypt.hash(password, saltRounds);
+   newUser.password = hash;
+   const existingUser = await userDao
+       .findUserByUsername(req.body.username);
+   if (existingUser) {
+       res.sendStatus(403);
+       return;
+   } else {
+       const insertedUser = await userDao
+           .createUser(newUser);
+       insertedUser.password = '*****';
+       req.session['profile'] = insertedUser;
+       res.json(insertedUser);}}
+
+
+const login = async (req, res) => {
+   const user = req.body;
+   const username = user.username;
+   const password = user.password;
+   const existingUser = await userDao
+       .findUserByUsername(username);
+   const match = await bcrypt
+       .compare(password, existingUser.password);
+   if (match) {
+       existingUser.password = '*****';
+       req.session['profile'] = existingUser;
+       res.json(existingUser);
+   } else {
+       res.sendStatus(403);}}
+
+
+const profile = (req, res) => {
+  res.json(req.session['profile']);
+}
+
+const logout = (req, res) => {
+  req.session.destroy();
+  res.sendStatus(200);
+}
+
+
 
 
 module.exports = (app) => {
@@ -74,4 +126,8 @@ module.exports = (app) => {
   app.post('/api/users', createUser);
   app.put('/api/users/:id', updateUser);
   app.delete('/api/users/:id', deleteUser);
+  app.post('/api/auth/signup', signup);
+  app.post('/api/auth/profile', profile);
+  app.post('/api/auth/login', login);
+  app.post('/api/auth/logout', logout);
 }
