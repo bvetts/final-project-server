@@ -28,8 +28,9 @@ const updateUser = (id, user) =>
     { $set: user}
 
   )
-const deleteUser = (id) =>
-  userModel.deleteOne({_id: id})
+
+const deleteUser = (username) =>
+  userModel.deleteOne({username: username})
 
 module.exports = {
   findUserByEmail, findAllUsers, findUserByCredentials,

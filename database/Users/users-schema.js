@@ -5,7 +5,8 @@ const usersSchema = mongoose.Schema({
   password: {type: String, required: true},
   firstName: String,
   lastName: {type: String},
-  phone:{type: String}
+  phone:{type: String},
+  role:{type: String, default:'general'}
 
 }, {collection: 'users'});
 module.exports = usersSchema;

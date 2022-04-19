@@ -1,4 +1,5 @@
 //const users = [];
+
 const userDao = require('../database/users/users-dao')
 
 const bcrypt = require('bcrypt');
@@ -37,8 +38,8 @@ const login = async (req, res) => {
    const user = req.body;
    const username = user.username;
    const password = user.password;
-   const existingUser = await userDao
-       .findUserByUsername(username);
+   const existingUser = await userDao.findUserByUsername(username);
+
    const match = await bcrypt
        .compare(password, existingUser.password);
    if (match) {
@@ -48,9 +49,18 @@ const login = async (req, res) => {
    } else {
        res.sendStatus(403);}}
 
-
+/*
 const profile = (req, res) => {
   res.json(req.session['profile']);
+}
+*/
+const profile = (req, res) => {
+  const profile = req.session['profile']
+  if(profile) {
+    res.json(profile)
+  } else {
+    res.sendStatus(503)
+  }
 }
 
 const logout = (req, res) => {
