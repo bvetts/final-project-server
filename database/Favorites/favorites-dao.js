@@ -11,10 +11,12 @@ const findAllFavorites = async () => {
     return fav;
 
 }
+const findFavoritesPair = (userID, uuid) =>
+ favoritesModel.findOne({userID, uuid})
 
 
-const favoritesByUser = async (username) => {
-  const articles = favoritesModel.find({username});
+const favoritesByUser = async (userID) => {
+  const articles = favoritesModel.find({userID});
   return articles;
 }
 

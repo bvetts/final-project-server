@@ -3,7 +3,8 @@
 
 const mongoose = require('mongoose')
 const favoritesSchema = mongoose.Schema({
-  username: {type: String, required: true},
-  uuid: {type: String, required: true}
+  userID: {type: String, required: true},
+  uuid: {type: String, required: true},
+  title: {type: String, required: true}
 }, {collection: 'favorites'})
 module.exports = favoritesSchema

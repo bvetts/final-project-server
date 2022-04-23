@@ -1,7 +1,7 @@
 const userDao = require('../database/users/users-dao')
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+//const bcrypt = require('bcrypt');
+//const saltRounds = 10;
 
 
 const findAllUsers = async (req, res) => {
@@ -39,9 +39,9 @@ const findUserByUsername = async (req, res) => {
 
 const findUserByCredentials = async (req, res) => {
   const credentials = req.body
-  const {email, password} = credentials
+  const {username, password} = credentials
   const user = await userDao.findUserByCredentials(
-    email, password
+    username, password
   )
   if(user) {
     res.sendStatus(200)
@@ -49,6 +49,7 @@ const findUserByCredentials = async (req, res) => {
     res.sendStatus(403)
   }
 }
+
 const createUser = async (req, res) => {
   const user = req.body
   const insertedUser = await userDao.createUser(user)
@@ -73,9 +74,9 @@ const deleteUser = async (req, res) => {
 
 const signup = async (req, res) => {
    const newUser = req.body;
-   const password = newUser.password;
-   const hash = await bcrypt.hash(password, saltRounds);
-   newUser.password = hash;
+   //const password = newUser.password;
+   //const hash = await bcrypt.hash(password, saltRounds);
+  // newUser.password = hash;
    const existingUser = await userDao
        .findUserByUsername(req.body.username);
    if (existingUser) {
@@ -84,7 +85,7 @@ const signup = async (req, res) => {
    } else {
        const insertedUser = await userDao
            .createUser(newUser);
-       insertedUser.password = '*****';
+       //insertedUser.password = '*****';
        req.session['profile'] = insertedUser;
        res.json(insertedUser);}}
 
@@ -93,12 +94,11 @@ const login = async (req, res) => {
    const user = req.body;
    const username = user.username;
    const password = user.password;
-   const existingUser = await userDao
-       .findUserByUsername(username);
-   const match = await bcrypt
-       .compare(password, existingUser.password);
-   if (match) {
-       existingUser.password = '*****';
+   const existingUser = await userDao .findUserByCredentials(username, password)
+   //const match = await bcrypt
+       //.compare(password, existingUser.password);
+   if (existingUser) {
+       //existingUser.password = '*****';
        req.session['profile'] = existingUser;
        res.json(existingUser);
    } else {

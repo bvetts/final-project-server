@@ -1,9 +1,11 @@
 //const users = [];
 
+
+//note: we dont actually use this file
 const userDao = require('../database/users/users-dao')
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+//const bcrypt = require('bcrypt');
+//const saltRounds = 10;
 /*
 const findUserByUsername = async (req, res) => {
   const username = req.params.username
@@ -18,9 +20,9 @@ const findUserByUsername = async (req, res) => {
 
 const signup = async (req, res) => {
    const newUser = req.body;
-   const password = newUser.password;
-   const hash = await bcrypt.hash(password, saltRounds);
-   newUser.password = hash;
+   //const password = newUser.password;
+   //const hash = await bcrypt.hash(password, saltRounds);
+   //newUser.password = hash;
    const existingUser = await userDao
        .findUserByUsername(req.body.username);
    if (existingUser) {
@@ -29,7 +31,7 @@ const signup = async (req, res) => {
    } else {
        const insertedUser = await userDao
            .createUser(newUser);
-       insertedUser.password = '*****';
+       //insertedUser.password = '*****';
        req.session['profile'] = insertedUser;
        res.json(insertedUser);}}
 

@@ -16,8 +16,8 @@ const favoritesByUUID = async (req, res) => {
    }
  }
 const favoritesByUser = async (req, res) => {
-    const username = req.params['username']
-    const favs = await favoritesDao.favoritesByUser(username)
+    const userID = req.params['userID']
+    const favs = await favoritesDao.favoritesByUser(userID)
 
     if(favs) {
       res.json(favs)
@@ -26,6 +26,18 @@ const favoritesByUser = async (req, res) => {
       res.sendStatus(404)
     }
 }
+const favoritesPair= async (req, res) => {
+   const uuid = req.params['uuid']
+   const userID = req.params['userID']
+
+   const favs = await favoritesDao.findFavoritesPair(userID, uuid)
+   if(favs) {
+     res.json(favs)
+   } else {
+     res.sendStatus(404)
+   }
+ }
+
 
 const deleteFavorite = async (req, res) => {
   const id = req.params['id']
@@ -41,8 +53,9 @@ const createFavorite = async (req, res) => {
 
 module.exports = (app) => {
   app.get('/api/favorites', findAllFavorites);
+  //app.get('/api/favorites/_id/:_id', favoritesPair);
   app.get('/api/favorites/uuid/:uuid', favoritesByUUID);
-  app.get('/api/favorites/username/:username', favoritesByUser);
+  app.get('/api/favorites/userID/:userID', favoritesByUser);
   app.post('/api/favorites', createFavorite);
   app.delete('/api/favorites/:id', deleteFavorite);
 }

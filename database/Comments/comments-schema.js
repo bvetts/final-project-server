@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const tuitsSchema = mongoose.Schema({
   comment: String,
-  username: {type: String, required: true}
+  userID: {type: String, required: true},
+  uuid: {type: String, required: true},
+  title:{type: String, required: true},
+  name:{type: String, required: true}
 }, {collection: 'comments'});
 module.exports = tuitsSchema;
