@@ -26,7 +26,8 @@ const favoritesByUser = async (req, res) => {
       res.sendStatus(404)
     }
 }
-const favoritesPair= async (req, res) => {
+/*
+const findFavoritesPair = async (req, res) => {
    const uuid = req.params['uuid']
    const userID = req.params['userID']
 
@@ -37,7 +38,7 @@ const favoritesPair= async (req, res) => {
      res.sendStatus(404)
    }
  }
-
+*/
 
 const deleteFavorite = async (req, res) => {
   const id = req.params['id']
@@ -47,9 +48,25 @@ const deleteFavorite = async (req, res) => {
 
 const createFavorite = async (req, res) => {
   const info = req.body
-  const fav = await favoritesDao.createFavorite(info)
-  res.json(fav)
+  const uuid = info.uuid
+  const userID = info.userID
+  const existingFav = await favoritesDao.findFavoritesPair( userID,uuid)
+  console.log(existingFav)
+  if (existingFav==null) {
+    const fav = await favoritesDao.createFavorite(info)
+    res.json(fav)
+
+  }
+  else{
+  res.sendStatus(403);
+  return;
+  }
 }
+
+
+
+
+
 
 module.exports = (app) => {
   app.get('/api/favorites', findAllFavorites);

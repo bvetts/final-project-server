@@ -11,8 +11,10 @@ const findAllFavorites = async () => {
     return fav;
 
 }
-const findFavoritesPair = (userID, uuid) =>
- favoritesModel.findOne({userID, uuid})
+const findFavoritesPair = (userID, uuid) =>{
+ pair = favoritesModel.findOne({userID, uuid})
+ return pair
+ }
 
 
 const favoritesByUser = async (userID) => {
@@ -29,5 +31,5 @@ const deleteFavorite = (id) =>
   favoritesModel.deleteOne({_id: id})
 
 module.exports = {
-  findAllFavorites, favoritesByUser, favoritesByUUID, createFavorite, deleteFavorite
+  findAllFavorites, favoritesByUser, favoritesByUUID, createFavorite, deleteFavorite,findFavoritesPair
   }

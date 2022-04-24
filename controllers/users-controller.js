@@ -94,7 +94,7 @@ const login = async (req, res) => {
    const user = req.body;
    const username = user.username;
    const password = user.password;
-   const existingUser = await userDao .findUserByCredentials(username, password)
+   const existingUser = await userDao.findUserByCredentials(username, password)
    //const match = await bcrypt
        //.compare(password, existingUser.password);
    if (existingUser) {

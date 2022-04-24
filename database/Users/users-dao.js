@@ -16,8 +16,8 @@ const findUserByEmail = (email) =>
 const findUserByUsername = (username) =>
   userModel.findOne({username})
 
-const findUserByCredentials = (email, password) =>
-  userModel.findOne({email, password})
+const findUserByCredentials = (username, password) =>
+  userModel.findOne({username, password})
 // userModel.findOne({email: email, password: password})
 const createUser = (user) =>
   userModel.create(user)
