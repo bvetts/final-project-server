@@ -67,6 +67,9 @@ const deleteUser = async (req, res) => {
   res.json(status)
 }
 
+//can
+
+
 
 //stuff from auth controller
 
@@ -119,6 +122,7 @@ const logout = (req, res) => {
 
 module.exports = (app) => {
   app.get('/api/users', findAllUsers);
+  //app.get('/api/users/newest', findNewest );
   app.get('/api/users/:id', findUserById);
   app.get('/api/users/email/:email', findUserByEmail);
   app.get('/api/users/username/:username', findUserByUsername);

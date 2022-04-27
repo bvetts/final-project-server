@@ -10,5 +10,5 @@ const usersSchema = mongoose.Schema({
   description:{type: String, default:"None"},
   role:{type: String, default:'general'}
 
-}, {collection: 'users'});
+}, {collection: 'users',timestamps: true });
 module.exports = usersSchema;

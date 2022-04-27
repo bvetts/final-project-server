@@ -1,7 +1,7 @@
 const userModel = require('./users-model')
 
 const findAllUsers = () => {
-  return userModel.find()
+  return userModel.find().sort( { 'createdAt': -1 } )
 }
 const findUserById = (id) => {
   return userModel.findById(id)
@@ -28,12 +28,16 @@ const updateUser = (id, user) =>
     { $set: user}
 
   )
+const findNewestUser = () => {
+    return  userModel.findOne({}, {}, { sort: { 'created_at' : -1 } });
+}
+
 
 const deleteUser = (_id) =>
   userModel.deleteOne({_id: _id})
 
 module.exports = {
   findUserByEmail, findAllUsers, findUserByCredentials,
-  findUserById, createUser, deleteUser, updateUser, findUserByUsername
+  findUserById, createUser, deleteUser, updateUser, findUserByUsername ,findNewestUser
 }
 

@@ -1,7 +1,7 @@
 const tuitsModel = require('./comments-model');
 
 const findAllTuits = async () => {
-  const tuits = await tuitsModel.find();
+  const tuits = await tuitsModel.find().sort( { 'createdAt': -1 } );
   return tuits;
 }
 const findAllTuitsByUser = async (userID) => {

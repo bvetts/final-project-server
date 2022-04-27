@@ -6,5 +6,5 @@ const favoritesSchema = mongoose.Schema({
   userID: {type: String, required: true},
   uuid: {type: String, required: true},
   title: {type: String, required: true}
-}, {collection: 'favorites'})
+}, {collection: 'favorites',timestamps: true})
 module.exports = favoritesSchema

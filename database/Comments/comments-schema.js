@@ -5,5 +5,5 @@ const tuitsSchema = mongoose.Schema({
   uuid: {type: String, required: true},
   title:{type: String, required: true},
   name:{type: String, required: true}
-}, {collection: 'comments'});
+}, {collection: 'comments',timestamps: true});
 module.exports = tuitsSchema;
