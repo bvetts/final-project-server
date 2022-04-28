@@ -32,5 +32,6 @@ require("./controllers/session-controller")(app);
 require("./controllers/comments-controller")(app);
 require("./controllers/favorites-controller")(app);
 require("./controllers/friends-controller")(app);
-
+require("./controllers/article-controller")(app);
+require("./controllers/org-controller")(app);
 app.listen(process.env.PORT || 4000);

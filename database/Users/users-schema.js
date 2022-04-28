@@ -6,7 +6,7 @@ const usersSchema = mongoose.Schema({
   firstName: String,
   lastName: {type: String},
   phone:{type: String},
-  org:{type: String, default:"None"},
+  org:{type: String, default:"Independent"},
   description:{type: String, default:"None"},
   role:{type: String, default:'general'}
 
